@@ -1,0 +1,16 @@
+<h2>Transfer Balance</h2>
+<form (ngSubmit)="transfer()">
+  <div>
+    <label for="senderMobile">Sender Mobile</label>
+    <input type="text" id="senderMobile" [(ngModel)]="model.senderMobile" name="senderMobile" required>
+  </div>
+  <div>
+    <label for="receiverMobile">Receiver Mobile</label>
+    <input type="text" id="receiverMobile" [(ngModel)]="model.receiverMobile" name="receiverMobile" required>
+  </div>
+  <div>
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" [(ngModel)]="model.amount" name="amount" required>
+  </div>
+  <button type="submit">Transfer</button>
+</form>
