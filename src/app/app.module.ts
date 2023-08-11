@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from '../app/services/Auth.service';
+import { TransferService } from '../app/services/Transfer.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -20,9 +23,10 @@ import { TransferComponent } from './transfer/transfer.component';
     BrowserModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthService,TransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
