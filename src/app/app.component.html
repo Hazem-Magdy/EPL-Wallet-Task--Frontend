@@ -1,7 +1,9 @@
 <nav>
-  <a routerLink="/register">Register</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/transfer">Transfer</a>
+  <a *ngIf="!isLoggedIn()" routerLink="/register">Register</a>
+  <a *ngIf="isLoggedIn() && getRole() === 'Admin'" routerLink="/report">Report</a>
+  <a *ngIf="isLoggedIn()" routerLink="/transfer">Transfer</a>
+  <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
+  <a *ngIf="isLoggedIn()" routerLink="/login">Logout</a>
 </nav>
 
 <router-outlet></router-outlet>

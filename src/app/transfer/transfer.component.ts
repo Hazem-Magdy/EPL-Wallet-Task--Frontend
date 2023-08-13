@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TransferService } from '../services/Transfer.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-transfer',
@@ -8,17 +10,28 @@ import { TransferService } from '../services/Transfer.service';
 })
 export class TransferComponent {
   model: any = {};
+  transferForm!: FormGroup;
 
-  constructor(private transferService: TransferService) { }
+  constructor(private transferService: TransferService,private fb: FormBuilder,private snackBar: MatSnackBar) { 
+    this.transferForm = this.fb.group({
+      senderMobile: ['', [Validators.required, Validators.pattern(/^(\+20|0)?1\d{9}$/)]],
+      receiverMobile: ['', [Validators.required, Validators.pattern(/^(\+20|0)?1\d{9}$/)]],
+      amount: ['', [Validators.required, Validators.min(0.01)]]
+    });
+  }
 
   transfer(): void {
-    this.transferService.transfer(this.model).subscribe(
-      (response) => {
-        console.log('Transfer successful', response);
-      },
-      (error) => {
-        console.error('Transfer failed', error);
-      }
+    console.log(this.transferForm.value)
+    this.transferService.transfer(this.transferForm.value).subscribe(()=>{
+      this.snackBar.open('Transfer done successfully.', 'Close', {
+        duration: 3000,
+      });
+    },(error)=>{
+      this.snackBar.open(`Transfer failed. ${error.message}`, 'Close', {
+        duration: 3000,
+      });
+    }
+      
     );
   }
 }

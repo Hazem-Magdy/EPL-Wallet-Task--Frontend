@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Balance Report</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button color="primary" (click)="getBalanceReport()">Get Report</button>
+      <div *ngIf="balanceReport">
+        <h3>Balance Report</h3>
+        <div *ngFor="let reportItem of balanceReport">
+          <p>User Mobile: {{ reportItem.userMobile }}</p>
+          <p>User Name: {{ reportItem.userName }}</p>
+          <p>Total Sent Amount: {{ reportItem.totalSentAmount }}</p>
+          <hr>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

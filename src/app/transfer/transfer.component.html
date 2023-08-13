@@ -1,16 +1,25 @@
-<h2>Transfer Balance</h2>
-<form (ngSubmit)="transfer()">
-  <div>
-    <label for="senderMobile">Sender Mobile</label>
-    <input type="text" id="senderMobile" [(ngModel)]="model.senderMobile" name="senderMobile" required>
-  </div>
-  <div>
-    <label for="receiverMobile">Receiver Mobile</label>
-    <input type="text" id="receiverMobile" [(ngModel)]="model.receiverMobile" name="receiverMobile" required>
-  </div>
-  <div>
-    <label for="amount">Amount</label>
-    <input type="number" id="amount" [(ngModel)]="model.amount" name="amount" required>
-  </div>
-  <button type="submit">Transfer</button>
-</form>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Transfer Balance</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="transferForm" (ngSubmit)="transfer()">
+      <mat-form-field>
+        <input matInput formControlName="senderMobile" placeholder="Sender Mobile" required>
+        <mat-error *ngIf="transferForm.get('senderMobile')?.hasError('required')">Sender Mobile is required</mat-error>
+        <mat-error *ngIf="transferForm.get('senderMobile')?.hasError('pattern')">Invalid sender mobile format</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="receiverMobile" placeholder="Receiver Mobile" required>
+        <mat-error *ngIf="transferForm.get('receiverMobile')?.hasError('required')">Receiver Mobile is required</mat-error>
+        <mat-error *ngIf="transferForm.get('receiverMobile')?.hasError('pattern')">Invalid receiver mobile format</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="amount" placeholder="Amount" type="number" required>
+        <mat-error *ngIf="transferForm.get('amount')?.hasError('required')">Amount is required</mat-error>
+        <mat-error *ngIf="transferForm.get('amount')?.hasError('min')">Amount must be greater than zero</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Transfer</button>
+    </form>
+  </mat-card-content>
+</mat-card>
